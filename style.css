@@ -44,9 +44,11 @@ pre {
     font-family: 'Courier New', 'monospace';
     margin: 1rem auto;
     font-size: 4px;
-    line-height: 1;
+    line-height: 0.5;
     filter: drop-shadow(1px 1px 1px black);
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 footer {
