@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ascii Art Converter</title>
+    <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+    <header>
+        <h1>Ascii Video Converter</h1>
+        <p>Made with the help of <a href="https://github.com/jpetitcolas/ascii-art-converter">jpetitcolas</a></p>
+    </header>
+    <button>
+        Play
+    </button>
+    <video width="400" controls id="video" style="display:none">
+        <source src="./src/when you play deathcore at a kids concert.mp4" type="video/mp4">
+        Your browser does not support HTML video.
+    </video>
+    <canvas id="preview" style="display: none;" width="400" height="400"></canvas>
+    <pre id="ascii"></pre>
+
+    <script src="./src/index.js"></script>
+</body>
+</html>
