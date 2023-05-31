@@ -34,8 +34,9 @@ document.querySelector("#playButton").addEventListener("click",(e)=>{
     video.paused ? video.play():video.pause()
 })
 document.querySelector("#ChangeAscii").addEventListener("click",(e)=>{
-  e.target.innerHTML = isDark ? "Dark Mode":"Balanced Mode" ;
   isDark = !isDark
+  e.target.innerHTML = isDark ? "Dark Mode":"Balanced Mode" ;
+
 })
 
 function renderAscii (e){
