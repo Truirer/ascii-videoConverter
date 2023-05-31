@@ -36,11 +36,15 @@ document.querySelector("#playButton").addEventListener("click",(e)=>{
 document.querySelector("#ChangeAscii").addEventListener("click",(e)=>{
   isDark = !isDark
   e.target.innerHTML = isDark ? "Dark Mode":"Balanced Mode" ;
-
+})
+let multiplier = 1;
+document.querySelector("#resolution").addEventListener("change",(e)=>{
+  document.querySelector("pre").style.fontSize= 16 - e.target.value*4+"px"
+  multiplier= 4-e.target.value
 })
 
 function renderAscii (e){
-        const width = Math.floor(window.innerWidth/3);
+        const width = Math.floor(window.innerWidth/3/multiplier);
         const horizontalWidth = video.videoHeight/video.videoWidth*width
         const height = horizontalWidth ;
 
