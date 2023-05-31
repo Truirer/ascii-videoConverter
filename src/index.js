@@ -5,42 +5,44 @@ const asciiImage = document.getElementById('ascii');
 const context = canvas.getContext('2d');
 const video = document.getElementById('video');
 
-const toGrayScale = (r, g, b) => 0.21 * r + 0.72 * g + 0.07 * b;
-
+const toGrayScale = (r, g, b) => 0.334 * r + 0.333 * g + 0.333 * b;
+let isDark = false;
 
 
 const convertToGrayScales = (context, width, height) => {
     const imageData = context.getImageData(0, 0, width, height);
 
     const grayScales = [];
-
+    let count = 0;
     for (let i = 0 ; i < imageData.data.length ; i += 4) {
+      
         const r = imageData.data[i];
         const g = imageData.data[i + 1];
         const b = imageData.data[i + 2];
 
         const grayScale = toGrayScale(r, g, b);
         imageData.data[i] = imageData.data[i + 1] = imageData.data[i + 2] = grayScale;
-
         grayScales.push(grayScale);
     }
-
     context.putImageData(imageData, 0, 0);
 
     return grayScales;
 };
 
-document.querySelector("button").addEventListener("click",(e)=>{
+document.querySelector("#playButton").addEventListener("click",(e)=>{
     e.target.innerHTML = video.paused ? "STOP":"PLAY" ;
     video.paused ? video.play():video.pause()
+})
+document.querySelector("#ChangeAscii").addEventListener("click",(e)=>{
+  e.target.innerHTML = isDark ? "Dark Mode":"Balanced Mode" ;
+  isDark = !isDark
 })
 
 function renderAscii (e){
         const width = Math.floor(window.innerWidth/3);
-        const height = video.videoHeight/video.videoWidth*width;
+        const horizontalWidth = video.videoHeight/video.videoWidth*width
+        const height = horizontalWidth ;
 
-        canvas.width = window.innerWidth;
-        canvas.height = video.videoHeight;
         context.drawImage(e, 0, 0, width, height);
         const grayScales = convertToGrayScales(context, width, height);
         drawAscii(grayScales, width);
@@ -68,10 +70,15 @@ video.addEventListener('play', function() {
   })();
 });
 
-const grayRamp = '$@0GCLft1i;:..,:;i1tfL ';
-const rampLength = grayRamp.length;
+const grayRampBalanced = '$@08GCLft1i;:.,:;i1tfLCG0 ';
+const grayRampDark = '$@08;:.,:;i1tfLCG0 ';
 
-const getCharacterForGrayScale = grayScale => grayRamp[Math.ceil((rampLength - 1) * grayScale / 255)];
+
+const getCharacterForGrayScale = (grayScale) => {
+  let grayRamP = isDark ? grayRampDark:grayRampBalanced;
+  let rampLength = grayRamP.length;
+  return grayRamP[Math.ceil((rampLength - 1) * grayScale / 255)]
+};
 
 const drawAscii = (grayScales, width) => {
     const ascii = grayScales.reduce((asciiImage, grayScale, index) => {
